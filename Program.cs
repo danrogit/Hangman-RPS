@@ -66,13 +66,23 @@ namespace Projekt_SpilUge38
                 switch (valg)
                 {
                     case "1":
+                        //Her starter du spillet
                         RPS();
                         break;
-
                     case "2":
+                        // Her læses om spillets regler
                         Rules();
+                        Console.WriteLine("Rules");
                         Console.ReadKey();
                         break;
+                
+                {
+                    static void Rules()
+                    Console.Clear();
+                    Console.WriteLine("Rock beats scissor");
+                    Console.WriteLine("Scissor beats paper");
+                    Console.WriteLine("Paper beats rock");
+                    
 
                 }
 
