@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -49,11 +50,36 @@ namespace Projekt_SpilUge38
 
         static void RPS() // Sten saks papir
         {
-            
-            Console.Clear();
-            Console.WriteLine("RPS");
-            Console.WriteLine("RPS spil");
-            Console.ReadKey();
+            bool inMenu = true;
+            while (inMenu)
+            {
+
+                Console.Clear();
+                Console.WriteLine("RPS");
+                Console.WriteLine("1. RPS spil");
+                Console.WriteLine("2. Rules");
+                Console.WriteLine("Type ´1´ to play, ´2´ for rules.");
+                Console.ReadKey();
+
+                string valg = Console.ReadLine();
+
+                switch (valg)
+                {
+                    case "1":
+                        RPS();
+                        break;
+
+                    case "2":
+                        Rules();
+                        Console.ReadKey();
+                        break;
+
+                }
+
+            }
+
+
+
         }
 
         static void Hangman() // Hangman spiller
