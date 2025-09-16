@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,42 +54,78 @@ namespace Projekt_SpilUge38
             bool inMenu = true;
             while (inMenu)
             {
-
                 Console.Clear();
                 Console.WriteLine("RPS");
                 Console.WriteLine("1. RPS spil");
                 Console.WriteLine("2. Rules");
                 Console.WriteLine("Type ´1´ to play, ´2´ for rules.");
-                Console.ReadKey();
+                
 
                 string valg = Console.ReadLine();
 
-                switch (valg)
+                switch (valg) // Det gør så computeren ved hvilke knap der bliver trykket på.
                 {
                     case "1":
                         //Her starter du spillet
-                        RPS();
+                        PlayGame();
                         break;
                     case "2":
-                        // Her læses om spillets regler
+                        // Regler 
                         Rules();
-                        Console.WriteLine("Rules");
                         Console.ReadKey();
                         break;
-                
-                {
-                    static void Rules()
-                    Console.Clear();
-                    Console.WriteLine("Rock beats scissor");
-                    Console.WriteLine("Scissor beats paper");
-                    Console.WriteLine("Paper beats rock");
-                    
-
                 }
+            }
+        }
 
+        static void Rules() // Her starter vores kodeblok om regler. 
+        {
+            Console.Clear();
+            Console.WriteLine("=== Rules for Rock, Paper, Scissor ===");
+            Console.WriteLine("Rock beats scissor");
+            Console.WriteLine("Scissor beats paper");
+            Console.WriteLine("Paper beats rock");
+            
+        }
+
+        static void PlayGame() // Her starter vores kodeblok, hvor intet bliver retuneret. 
+        {
+            Console.Clear();
+            Console.WriteLine("=== Game Starts!");
+            Console.WriteLine("Choose Rock, Paper, or Scissor");
+            Console.Write("Your turn");
+            string brugerValg = Console.ReadLine().ToLower(); // ToLower gør at hvis jeg glemmer det skal skrives med småt, og det bliver stor skrift, vil computeren
+            // ændre det til småt. 
+
+            // Computer choice 
+            string[] muligheder = { "rock", "paper", "scissor" }; // En array med tre muligheder. mulighed [0] [1] [2]
+            Random rnd = new Random(3); // Random generator, i forhold til arrayet.
+            string computerValg = muligheder[rnd.Next(muligheder.Length)]; // her fortæller den at længden på arrayet er 3. rnd.Next er tilfældigt
+
+            Console.WriteLine("Computer choices:" + computerValg);
+
+            // Find a winner
+            if (brugerValg == computerValg)
+            {                                   // Tjekker om brugerens valg er det samme som computerens. 
+                Console.WriteLine("Draw"); 
+            }
+            else if ((brugerValg == "rock" && computerValg == "scissor")
+                  || (brugerValg == "scissor" && computerValg == "paper") // Her laves en opsætning hvor spilleren vinder. 
+                  || (brugerValg == "paper" && computerValg == "rock")) // || betyder eller. Vi bruger dette, så det gør det lettere at benytte alle tre muligheder.
+            {
+                Console.WriteLine("You win!"); 
+            }
+            else if (brugerValg == "rock" || brugerValg == "scissor" || brugerValg == "paper")
+                {
+                Console.WriteLine("Computer wins!");
+            }
+            else
+            {
+                Console.WriteLine("invalid choice."); // Denne linjer gør at hvis brugeren har tastet forkert, vil den ikke blive gennemført
             }
 
-
+            Console.WriteLine("\nEnter a key to return to menu...");
+            Console.ReadKey();
 
         }
 
@@ -98,8 +135,12 @@ namespace Projekt_SpilUge38
             Console.WriteLine("Game started!");
             Console.WriteLine("Hangman spil");
             Console.ReadKey();
+
+
         }
+
     }
 }
+
 
 
