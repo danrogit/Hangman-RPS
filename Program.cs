@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
+using System.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,7 +37,6 @@ namespace Projekt_SpilUge38
                         break;
                     case "2":
                         Hangman();
-                        Console.ReadKey();
                         break;
                     case "3":
                         running = false;
@@ -52,7 +52,6 @@ namespace Projekt_SpilUge38
 
         static void RPS() // Sten saks papir
         {
-            
             Console.Clear();
             Console.WriteLine("RPS");
             Console.WriteLine("RPS spil");
@@ -61,41 +60,273 @@ namespace Projekt_SpilUge38
 
         static void Hangman() // Hangman spiller
         {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\r\n█░█ ▄▀█ █▄░█ █▀▀ █▀▄▀█ ▄▀█ █▄░█\r\n█▀█ █▀█ █░▀█ █▄█ █░▀░█ █▀█ █░▀█\n\n");
+            string[] hangmanWords =
+             { "programming","algorithm","variable","function","loop","array","database",
+            "server","client","network","object","class","interface","compiling","debugging","terminal",
+            "repository","versioning","backend","frontend" };
 
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("1. Start game");
-            Console.WriteLine("2. Game rules");
-            Console.WriteLine("3. Back to main menu");
+            bool hangmanRun = true;
 
-            string drValg = Console.ReadKey().KeyChar.ToString(); // Spillerens valg
-
-            switch (drValg)
+            while (hangmanRun)
             {
-                case "1":
-                    Console.WriteLine("\nStart game");
-                    break;
-                case "2":
-                    Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("\r\n█▀▀ ▄▀█ █▀▄▀█ █▀▀   █▀█ █░█ █░░ █▀▀ █▀\r\n█▄█ █▀█ █░▀░█ ██▄   █▀▄ █▄█ █▄▄ ██▄ ▄█\n\n");
-                    Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine("Et hemmeligt ord bliver valgt automatisk.\n");
-                        Console.WriteLine("Du kan se, hvor mange bogstaver ordet har – hvert bogstav vises som en streg '_'.\n");
-                        Console.WriteLine("Gæt ét bogstav ad gangen.\n - Rigtigt bogstav > det bliver vist på sin plads i ordet.\n - Forkert bogstav → du mister et liv.\n");
-                        Console.WriteLine("Du starter med 5 liv. Når du mister alle liv, har du tabt.\n");
-                        Console.WriteLine("Hvis du gætter hele ordet, vinder du spillet.\n");
-                        Console.WriteLine("Når spillet er slut, kan du vælge at prøve igen eller gå tilbage til menuen.\n");
-                    break;
-                case "3":
-                    Console.WriteLine("\nBack to main menu");
-                    break;
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\r\n█░█ ▄▀█ █▄░█ █▀▀ █▀▄▀█ ▄▀█ █▄░█\r\n█▀█ █▀█ █░▀█ █▄█ █░▀░█ █▀█ █░▀█\n\n");
+
+                // Gør tekst hvid
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("1. Start game");
+                Console.WriteLine("2. Game rules");
+                Console.WriteLine("3. Back to main menu");
+
+                string drChoice = Console.ReadKey().KeyChar.ToString(); // Spillerens valg
+
+                switch (drChoice)
+                {
+                    case "1":
+                        drGame(hangmanWords);
+                        break;
+                    case "2":
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\r\n█▀▀ ▄▀█ █▀▄▀█ █▀▀   █▀█ █░█ █░░ █▀▀ █▀\r\n█▄█ █▀█ █░▀░█ ██▄   █▀▄ █▄█ █▄▄ ██▄ ▄█\n\n");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("A secret word is chosen automatically.\n");
+                        Console.WriteLine("You can see how many letters the word has – each letter is shown as a dash '_'.\n");
+                        Console.WriteLine("Guess one letter at a time.\n - Correct letter > it will be shown in its place in the word.\n - Wrong letter → you lose a life.\n");
+                        Console.WriteLine("You start with 5 lives. When you lose all your lives, you have lost.\n");
+                        Console.WriteLine("If you guess the whole word, you win the game.\n");
+                        Console.WriteLine("When the game is over, you can choose to try again or go back to the menu.\n");
+                        Console.WriteLine("\nPRESS ANY KEY TO GO BACK");
+                        Console.ReadKey();
+                        break;
+                    case "3":
+                        hangmanRun = false;
+                        break;
+                }
+            }
+        }
+        // ASCII hangman fra https://inventwithpython.com/bigbookpython/project34.html
+        static string drHangmanArt(int drLives)
+        {
+            switch (drLives) 
+            {
+                case 5:
+                    return @"
+ +--+
+ |  |
+    |
+    |
+    |
+    |
+=====";
+                case 4:
+                    return @"
+ +--+
+ |  |
+ O  |
+    |
+    |
+    |
+=====";
+                case 3:
+                    return @"
+ +--+
+ |  |
+ O  |
+ |  |
+    |
+    |
+=====";
+                case 2:
+                    return @"
+ +--+
+ |  |
+ O  |
+/|  |
+    |
+    |
+=====";
+                case 1:
+                    return @"
+ +--+
+ |  |
+ O  |
+/|\ |
+    |
+    |
+=====";
+                case 0:
+                    return @"
+ +--+
+ |  |
+ O  |
+/|\ |
+/   |
+    |
+=====";
+                default:
+                    return @"
+ +--+
+ |  |
+ O  |
+/|\ |
+/ \ |
+    |
+=====";
+            }
+        }
+
+        // Alfabet så det er nemmere for brugeren at se deres valg
+        static string drAlphabet(List<char> drGuessedLetters)
+        {
+            string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            // Laver en linje til alfabetet
+            StringBuilder drLine = new StringBuilder();
+
+            for (int i = 0; i < alphabet.Length; i++)
+            {
+                char letter = alphabet[i];
+                if (drGuessedLetters.Contains(letter))
+                    drLine.Append("_ ");
+                else
+                    drLine.Append(letter + " ");
             }
 
-            Console.WriteLine("< PRESS ANY KEY TO GO BACK");
+            return $"Letters not used:\n{drLine.ToString().Trim()}";
 
+        }
+
+        // Hangman spillet
+        static void drGame(string[] hangmanWords)
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
+
+            // Vælg et tilfældigt ord
+            Random drRandom = new Random();
+            string drRandomWord = hangmanWords[drRandom.Next(hangmanWords.Length)].ToUpper();
+            
+            // Definerer spil variablerne
+            char[] drGuessedWord = new char[drRandomWord.Length];
+            List<char> drGuessedLetters = new List<char>();
+            int drLives = 5;
+            bool drGameWon = false;
+
+            // Indsætter '_'
+            for (int i = 0; i < drRandomWord.Length; i++)
+            {
+                drGuessedWord[i] = '_';
+            }
+
+            // While løkke til spillet
+            while (drLives > 0 && !drGameWon)
+            {
+                Console.Clear();
+             
+
+                // hangmanArt ASCII art
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(drHangmanArt(drLives));
+                Console.ForegroundColor = ConsoleColor.White;
+
+                // Vis nuværende stadie
+                Console.WriteLine("\nWord: " + string.Join(" ", drGuessedWord));
+                
+                // Vis alfabetet
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("\n" + drAlphabet(drGuessedLetters));
+                Console.ForegroundColor = ConsoleColor.White;
+
+                // Vis gættede bogstaver
+                if (drGuessedLetters.Count > 0)
+                {
+                    Console.WriteLine("\nYour guessed letters: " + string.Join(", ", drGuessedLetters));
+                }
+
+                Console.WriteLine("\nEnter a letter: ");
+                
+
+                string input = Console.ReadLine().ToUpper(); // ToUpper så alt er blokbogstaver
+                
+                if (string.IsNullOrEmpty(input) || input.Length != 1 || !char.IsLetter(input[0]))
+                {
+                    Console.WriteLine("Please enter one letter.");
+                    Console.ReadKey();
+                    continue;
+                }
+
+                char guess = input[0];
+
+                // Tjek om spilleren allerede har gættet det bogstav
+                if (drGuessedLetters.Contains(guess))
+                {
+                    Console.WriteLine("You already guessed that letter!");
+                    Console.ReadKey();
+                    continue;
+                }
+
+                // Tiilføj bogstav til gættede bogstaver
+                drGuessedLetters.Add(guess);
+
+                // Tjek om bogstavet er i spillets valgte ord
+                bool drCorrectGuess = false;
+                for (int i = 0; i < drRandomWord.Length; i++)
+                {
+                    if (drRandomWord[i] == guess)
+                    {
+                        drGuessedWord[i] = guess;
+                        drCorrectGuess = true;
+                    }
+                }
+
+                // Rigtig/forkert gæt
+                if (drCorrectGuess)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Correct!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    drLives--;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Wrong!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+
+                // Check if word is complete
+                drGameWon = !drGuessedWord.Contains('_');
+
+                if (!drGameWon && drLives > 0)
+                {
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
+                }
+            }
+
+            // Spil afsluttet og resultat vises
+            Console.Clear();
+            
+            // Endelig resultat
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(drHangmanArt(drLives));
+            Console.ForegroundColor = ConsoleColor.White;
+            
+            if (drGameWon)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\nYou won! \nThe word was '{drRandomWord}'");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\nYou lost! \nThe word was '{drRandomWord}'");
+            }
+            
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\nPress any key to go back to the Hangman menu");
             Console.ReadKey();
         }
     }
