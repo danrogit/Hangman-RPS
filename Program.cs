@@ -282,13 +282,13 @@ namespace Projekt_SpilUge38
                 }
 
                 // Rigtig/forkert gæt
-                if (drCorrectGuess)
+                if (drCorrectGuess) // Rigtigt gæt
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Correct!");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
-                else
+                else // Forkert gæt
                 {
                     drLives--;
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -299,7 +299,7 @@ namespace Projekt_SpilUge38
                 // Check if word is complete
                 drGameWon = !drGuessedWord.Contains('_');
 
-                if (!drGameWon && drLives > 0)
+                if (!drGameWon && drLives > 0) // Hvis spillet er vundet og liv er højere end 0
                 {
                     Console.WriteLine("Press any key to continue...");
                     Console.ReadKey();
@@ -313,18 +313,20 @@ namespace Projekt_SpilUge38
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(drHangmanArt(drLives));
             Console.ForegroundColor = ConsoleColor.White;
-            
-            if (drGameWon)
+
+            if (drGameWon) // Spiller vandt
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"\nYou won! \nThe word was '{drRandomWord}'");
             }
-            else
+            else // Spiller tabte
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"\nYou lost! \nThe word was '{drRandomWord}'");
             }
-            
+
+            // Spil slut, gå til menu og spil igen, eller gå ud
+
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\nPress any key to go back to the Hangman menu");
             Console.ReadKey();
