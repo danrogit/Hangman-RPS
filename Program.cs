@@ -16,7 +16,8 @@ namespace Projekt_SpilUge38
             bool running = true;
             while (running)
             {
-                // Her vises Hovedmenuen som giver 4 forskellige muligheder
+                // Her vises Hovedmenuen som giver 4 forskellige muligheder. Hovedmenuen er oprettet af Daniel og Casper. 
+                // Hovedmenuen udgøre 2 forskellige spil, og inde i hvert spil, findes reglerne. 
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green; // Sæt tekstfarven til grøn
                 Console.WriteLine("888b     d888        d8888 8888888 888b    888      888b     d888 8888888888 888b    888 888     888 \n8888b   d8888       d88888   888   8888b   888      8888b   d8888 888        8888b   888 888     888 \n88888b.d88888      d88P888   888   88888b  888      88888b.d88888 888        88888b  888 888     888 \n888Y88888P888     d88P 888   888   888Y88b 888      888Y88888P888 8888888    888Y88b 888 888     888 \n888 Y888P 888    d88P  888   888   888 Y88b888      888 Y888P 888 888        888 Y88b888 888     888 \n888  Y8P  888   d88P   888   888   888  Y88888      888  Y8P  888 888        888  Y88888 888     888 \n888   \"   888  d8888888888   888   888   Y8888      888   \"   888 888        888   Y8888 Y88b. .d88P \n888       888 d88P     888 8888888 888    Y888      888       888 8888888888 888    Y888  \"Y88888P\"  \n                                                                                                     \n                                                                                                     \n                                                                                                     \n");
@@ -100,7 +101,7 @@ namespace Projekt_SpilUge38
             string brugerValg = Console.ReadLine().ToLower(); // ToLower gør at hvis jeg glemmer det skal skrives med småt, og det bliver stor skrift, vil computeren
             // ændre det til småt. 
 
-            // Computer choice 
+            // Computerens valg
             string[] muligheder = { "rock", "paper", "scissor" }; // En array med tre muligheder. mulighed [0] [1] [2]
             Random rnd = new Random(3); // Random generator, i forhold til arrayet.
             string computerValg = muligheder[rnd.Next(muligheder.Length)]; // her fortæller den at længden på arrayet er 3. rnd.Next er tilfældigt
