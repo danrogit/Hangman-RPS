@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security;
 using System.Text;
@@ -17,7 +18,8 @@ namespace Projekt_SpilUge38
             bool running = true;
             while (running)
             {
-                // Her vises Hovedmenuen som giver 4 forskellige muligheder
+                // Her vises Hovedmenuen som giver 4 forskellige muligheder. Hovedmenuen er oprettet af Daniel og Casper. 
+                // Hovedmenuen udgøre 2 forskellige spil, og inde i hvert spil, findes reglerne. 
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green; // Sæt tekstfarven til grøn
                 Console.WriteLine("\r\n███╗░░░███╗░█████╗░██╗███╗░░██╗  ███╗░░░███╗███████╗███╗░░██╗██╗░░░██╗\r\n████╗░████║██╔══██╗██║████╗░██║  ████╗░████║██╔════╝████╗░██║██║░░░██║\r\n██╔████╔██║███████║██║██╔██╗██║  ██╔████╔██║█████╗░░██╔██╗██║██║░░░██║\r\n██║╚██╔╝██║██╔══██║██║██║╚████║  ██║╚██╔╝██║██╔══╝░░██║╚████║██║░░░██║\r\n██║░╚═╝░██║██║░░██║██║██║░╚███║  ██║░╚═╝░██║███████╗██║░╚███║╚██████╔╝\r\n╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝  ╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝░╚═════╝░\n\n");
@@ -52,10 +54,86 @@ namespace Projekt_SpilUge38
 
         static void RPS() // Sten saks papir
         {
+
+            bool inMenu = true;
+            while (inMenu)
+            {
+                Console.Clear();
+                Console.WriteLine("RPS");
+                Console.WriteLine("1. RPS spil");
+                Console.WriteLine("2. Rules");
+                Console.WriteLine("Type ´1´ to play, ´2´ for rules.");
+                
+
+                string valg = Console.ReadLine();
+
+                switch (valg) // Det gør så computeren ved hvilke knap der bliver trykket på.
+                {
+                    case "1":
+                        //Her starter du spillet
+                        PlayGame();
+                        break;
+                    case "2":
+                        // Regler 
+                        Rules();
+                        Console.ReadKey();
+                        break;
+                }
+            }
+        }
+
+        static void Rules() // Her starter vores kodeblok om regler. 
+        {
             Console.Clear();
-            Console.WriteLine("RPS");
-            Console.WriteLine("RPS spil");
+            Console.WriteLine("=== Rules for Rock, Paper, Scissor ===");
+            Console.WriteLine("Rock beats scissor");
+            Console.WriteLine("Scissor beats paper");
+            Console.WriteLine("Paper beats rock");
+            Console.WriteLine("Try to beat the computer. You have a 33.3% chance of winning each game if both you and the computer");
+            Console.WriteLine("choose completly at random");
+            Console.WriteLine("=== Good Luck, and have fun! :D ===");
+            
+        }
+
+        static void PlayGame() // Her starter vores kodeblok. 
+        {
+            Console.Clear();
+            Console.WriteLine("=== Game Starts!");
+            Console.WriteLine("Choose Rock, Paper, or Scissor");
+            Console.Write("Your turn");
+            string brugerValg = Console.ReadLine().ToLower(); // ToLower gør at hvis jeg glemmer det skal skrives med småt, og det bliver stor skrift, vil computeren
+            // ændre det til småt. 
+
+            // Computerens valg
+            string[] muligheder = { "rock", "paper", "scissor" }; // En array med tre muligheder. mulighed [0] [1] [2]
+            Random rnd = new Random(3); // Random generator, i forhold til arrayet.
+            string computerValg = muligheder[rnd.Next(muligheder.Length)]; // her fortæller den at længden på arrayet er 3. rnd.Next er tilfældigt
+
+            Console.WriteLine("Computer choices:" + computerValg);
+
+            // Denne opsætning under, gør at vi finder en vinder ud fra ens valg. 
+            if (brugerValg == computerValg)
+            {                                   // Tjekker om brugerens valg er det samme som computerens. 
+                Console.WriteLine("Draw"); 
+            }
+            else if ((brugerValg == "rock" && computerValg == "scissor")
+                  || (brugerValg == "scissor" && computerValg == "paper") // Her laves en opsætning hvor spilleren vinder. 
+                  || (brugerValg == "paper" && computerValg == "rock")) // || betyder eller. Vi bruger dette, så det gør det lettere at benytte alle tre muligheder.
+            {
+                Console.WriteLine("You win!"); 
+            }
+            else if (brugerValg == "rock" || brugerValg == "scissor" || brugerValg == "paper")
+                {
+                Console.WriteLine("Computer wins!");
+            }
+            else
+            {
+                Console.WriteLine("invalid choice."); // Denne linjer gør at hvis brugeren har tastet forkert, vil den ikke blive gennemført
+            }
+
+            Console.WriteLine("\nEnter a key to return to menu...");
             Console.ReadKey();
+
         }
 
         static void Hangman() // Hangman spiller
@@ -330,8 +408,12 @@ namespace Projekt_SpilUge38
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\nPress any key to go back to the Hangman menu");
             Console.ReadKey();
+
+
         }
+
     }
 }
+
 
 
