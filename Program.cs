@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace Projekt_SpilUge38
 {
+    /// <summary>
+    ///  A small console game made with C#, that includes Rock, Paper & Scissor + Hangman. 
+    /// </summary>
+    /// 
     internal class Program
     {
         static void Main(string[] args)
@@ -42,7 +46,10 @@ namespace Projekt_SpilUge38
                         break;
                     case "3":
                         running = false;
-                        Console.WriteLine("Credits");
+                        Console.WriteLine("Credits\n\n");
+
+                        Console.WriteLine("The most awesome game ever created by Casper & Daniel");
+
                         break;
                     case "4":
                         running = false;
@@ -59,10 +66,13 @@ namespace Projekt_SpilUge38
             while (inMenu)
             {
                 Console.Clear();
-                Console.WriteLine("RPS");
-                Console.WriteLine("1. RPS spil");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("\n█▀█ █▀█ █▀▀ █▄▀   █▀█ ▄▀█ █▀█ █▀▀ █▀█   █▀ █▀▀ █ █▀ █▀ █▀█ █▀█\n█▀▄ █▄█ █▄▄ █░█   █▀▀ █▀█ █▀▀ ██▄ █▀▄   ▄█ █▄▄ █ ▄█ ▄█ █▄█ █▀▄\n");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("1. Start game");
                 Console.WriteLine("2. Rules");
-                Console.WriteLine("Type ´1´ to play, ´2´ for rules.");
+                Console.WriteLine("3. Back to main menu");
+                Console.WriteLine("\nType ´1´ to play, ´2´ for rules, '3' to go back to the main menu.");
                 
 
                 string valg = Console.ReadLine();
@@ -78,6 +88,9 @@ namespace Projekt_SpilUge38
                         Rules();
                         Console.ReadKey();
                         break;
+                    case "3":
+                        inMenu = false;
+                        break;
                 }
             }
         }
@@ -85,22 +98,25 @@ namespace Projekt_SpilUge38
         static void Rules() // Her starter vores kodeblok om regler. 
         {
             Console.Clear();
-            Console.WriteLine("=== Rules for Rock, Paper, Scissor ===");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\n█▀█ █▀█ █▀▀ █▄▀   █▀█ ▄▀█ █▀█ █▀▀ █▀█   █▀ █▀▀ █ █▀ █▀ █▀█ █▀█\n█▀▄ █▄█ █▄▄ █░█   █▀▀ █▀█ █▀▀ ██▄ █▀▄   ▄█ █▄▄ █ ▄█ ▄█ █▄█ █▀▄\n\n");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Rock beats scissor");
             Console.WriteLine("Scissor beats paper");
             Console.WriteLine("Paper beats rock");
-            Console.WriteLine("Try to beat the computer. You have a 33.3% chance of winning each game if both you and the computer");
-            Console.WriteLine("choose completly at random");
-            Console.WriteLine("=== Good Luck, and have fun! :D ===");
+            Console.WriteLine("\nTry to beat the computer. You have a 33.3% chance of winning each game \nif both you and the computer choose completly at random");
+            Console.WriteLine("\n\n=== Good Luck, and have fun! :D ===");
             
         }
 
         static void PlayGame() // Her starter vores kodeblok. 
         {
             Console.Clear();
-            Console.WriteLine("=== Game Starts!");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\n█▀█ █▀█ █▀▀ █▄▀   █▀█ ▄▀█ █▀█ █▀▀ █▀█   █▀ █▀▀ █ █▀ █▀ █▀█ █▀█\n█▀▄ █▄█ █▄▄ █░█   █▀▀ █▀█ █▀▀ ██▄ █▀▄   ▄█ █▄▄ █ ▄█ ▄█ █▄█ █▀▄\n");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Choose Rock, Paper, or Scissor");
-            Console.Write("Your turn");
+            Console.Write("Your turn\n");
             string brugerValg = Console.ReadLine().ToLower(); // ToLower gør at hvis jeg glemmer det skal skrives med småt, og det bliver stor skrift, vil computeren
             // ændre det til småt. 
 
@@ -120,10 +136,12 @@ namespace Projekt_SpilUge38
                   || (brugerValg == "scissor" && computerValg == "paper") // Her laves en opsætning hvor spilleren vinder. 
                   || (brugerValg == "paper" && computerValg == "rock")) // || betyder eller. Vi bruger dette, så det gør det lettere at benytte alle tre muligheder.
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You win!"); 
             }
             else if (brugerValg == "rock" || brugerValg == "scissor" || brugerValg == "paper")
                 {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Computer wins!");
             }
             else
@@ -131,6 +149,7 @@ namespace Projekt_SpilUge38
                 Console.WriteLine("invalid choice."); // Denne linjer gør at hvis brugeren har tastet forkert, vil den ikke blive gennemført
             }
 
+           
             Console.WriteLine("\nEnter a key to return to menu...");
             Console.ReadKey();
 
@@ -156,6 +175,8 @@ namespace Projekt_SpilUge38
                 Console.WriteLine("1. Start game");
                 Console.WriteLine("2. Game rules");
                 Console.WriteLine("3. Back to main menu");
+
+                Console.WriteLine("\nType ´1´ to play, ´2´ for rules, '3' to go back to the main menu.");
 
                 string drChoice = Console.ReadKey().KeyChar.ToString(); // Spillerens valg
 
