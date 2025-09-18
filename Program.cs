@@ -85,10 +85,13 @@ namespace Projekt_SpilUge38
             Console.WriteLine("Rock beats scissor");
             Console.WriteLine("Scissor beats paper");
             Console.WriteLine("Paper beats rock");
+            Console.WriteLine("Try to beat the computer. You have a 33.3% chance of winning each game if both you and the computer");
+            Console.WriteLine("choose completly at random");
+            Console.WriteLine("=== Good Luck, and have fun! :D ===");
             
         }
 
-        static void PlayGame() // Her starter vores kodeblok, hvor intet bliver retuneret. 
+        static void PlayGame() // Her starter vores kodeblok. 
         {
             Console.Clear();
             Console.WriteLine("=== Game Starts!");
@@ -104,7 +107,7 @@ namespace Projekt_SpilUge38
 
             Console.WriteLine("Computer choices:" + computerValg);
 
-            // Find a winner
+            // Denne opsætning under, gør at vi finder en vinder ud fra ens valg. 
             if (brugerValg == computerValg)
             {                                   // Tjekker om brugerens valg er det samme som computerens. 
                 Console.WriteLine("Draw"); 
